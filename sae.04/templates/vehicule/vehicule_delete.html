@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Vehicule</title>
+{% endblock %}
+
+{% block body %}
+
+    <h2>Liste des élement associé au vehicule numéro {{ id }}</h2>
+
+    <h3>Liste des decharges a suprimer</h3>
+
+     <table class="table table-striped table-hover" style="margin-top:20px">
+        <thead>
+        <tr class="table-success" >
+            <th>Date</th>
+            <th>Usine</th>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Opérations</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for decharge in decharges %}
+            <tr>
+                <td>{{ decharge.JMA }}</td>
+                <td>{{ decharge.nom_usine }}</td>
+                <td>{{ decharge.libelle_produit }}</td>
+                <td>{{ decharge.quantite }}</td>
+                <td>
+                    <a type="button"
+                       href="{{ '/vehicule/delete/decharge?id=' }}{{ decharge.id_decharge }}{{ '&idV=' }}{{ id }}">
+                        Suprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+    <h3>Liste des passages a suprimer</h3>
+
+    <table class="table table-striped table-hover" style="margin-top:20px">
+        <thead>
+        <tr class="table-success" >
+            <th>Date</th>
+            <th>Ordre</th>
+            <th>Centre</th>
+            <th>Opérations</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for passage in passages %}
+            <tr>
+                <td>{{ passage.JMA }}</td>
+                <td>{{ passage.ordre }}</td>
+                <td>{{ passage.nom_centre }}</td>
+                <td>
+                    <a type="button"
+                       href="{{ '/vehicule/delete/passage?id=' }}{{ passage.id_passage }}{{ '&idV=' }}{{ id }}">
+                        Suprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+     <a class="btn btn-danger mb-3" style="width: 100px; margin:10px" href="/vehicule/show">Annuler</a>
+{% endblock %}

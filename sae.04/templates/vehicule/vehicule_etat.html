@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Benne</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Etat des véhicules</h3>
+    <form method="post" action="/vehicule/etat">
+
+        <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+            <div class="card-header">
+                <legend> Filtrer les véhicules</legend>
+            </div>
+            <div class="card-body">
+
+                <fieldset>
+
+                    <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="marque">Marque</label><br>
+                            <select class="form-select" name="marque">
+                                <option value="">Sélectionner une marque</option>
+                                {% for marque in marques %}
+                                    <option value="{{ marque.id }}"> {{ marque.libelle }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                     <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="type_vehicule">Type de vehicule</label><br>
+                            <select class="form-select" name="type_vehicule">
+                                <option value="">Sélectionner un type de véhicule</option>
+                                {% for type_vehicule in type_vehicules %}
+                                    <option value="{{ type_vehicule.id }}"> {{ type_vehicule.libelle }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                     </div>
+                <input class="btn btn-primary mb-3" style="margin:10px" type="submit" value="Valider" name="Valider">
+            </fieldset>
+        </div>
+    </form>
+
+    <div class="card" style="margin:10px">
+        <h3> Il y a {{ nbV.nb_v }} véhicule(s).</h3>
+        <table class="table table-striped table-hover" style="margin-top:20px; padding: 10px; border:lightgrey solid 1px; ">
+            <thead>
+            <tr class="table-success" >
+                    <th>Véhicule</th>
+                    <th>Type</th>
+                    <th>Marque</th>
+                    <th>Poids maximal</th>
+                    <th>Date d'achat</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for vehicule in vehicules %}
+                <tr>
+                    <td>{{ vehicule.num_vehicule }}</td>
+                    <td>{{ vehicule.libelle_type }}</td>
+                    <td>{{ vehicule.libelle_marque }}</td>
+                    <td>{{ vehicule.poid_max }}</td>
+                    <td>{{ vehicule.date_achat }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <a class="btn btn-danger mb-3" style="margin:10px" href="/vehicule/show">Retour</a>
+    </div>
+{% endblock %}

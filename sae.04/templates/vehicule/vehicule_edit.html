@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Vehicule</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Editer un véhicule</h3>
+    <form method="post" action="/vehicule/edit">
+         <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px"><!--flex container de tout le form!-->
+            <div class="card-header">
+                <legend> Modifier un véhicule</legend>
+            </div>
+
+            <div class="card-body"><!-- conteiner!-->
+
+                <fieldset>
+
+                     <div class="row g-3" style="padding:10px"> <!--style form !-->
+                         <div class="col">
+                            <input type="hidden" name="id" value="{{ vehicule.num_vehicule }}" >
+                             <div class="col">
+                                <label class="col-sm-2 col-form-label" for="type_vehicule">Le type de véhicule</label>
+                                <select  class="form-select" name="type_vehicule" required>
+                                    <option value="{{ vehicule.num_type }}">Sélectionner un type</option>
+                                    {% for type_vehicule in type_vehicules %}
+                                        <option value="{{ type_vehicule.num_type }}"
+                                                {% if type_vehicule.num_type is defined and vehicule.num_type == type_vehicule.num_type %}selected{% endif %}>
+                                            {{ type_vehicule.libelle_type }}</option>
+                                    {% endfor %}
+                                </select>
+                             </div>
+                        </div>
+                     </div>
+
+                        <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <label class="col-sm-2 col-form-label for="marque">La marque</label>
+                                <select class="form-select" name="marque" required>
+                                    {% for marque in marques %}
+                                        <option value="{{ marque.num_marque}}"
+                                                {% if marque.num_marque is defined and vehicule.num_marque == marque.num_marque %}selected{% endif %}>
+                                            {{ marque.libelle_marque }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <label class="col-sm-2 col-form-label" for="poid_max">Le poids maximal</label>
+                                <input id="poid_max" type="number" name="poid_max" value="{{ vehicule.poid_max }}" required>
+                            </div>
+                        </div>
+                        <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <label class="col-sm-2 col-form-label" for="date_achat">La date d'achat</label>
+                                <input id="date_achat" type="date" name="date_achat" value="{{ vehicule.date_achat }}" required>
+                            </div>
+                        </div>
+
+                        <input class="btn btn-primary mb-3" type="submit" value="Valider" name="Valider">
+                <a class="btn btn-danger mb-3" href="/vehicule/show">Annuler</a>
+                </fieldset>
+            </div>
+         </div>
+    </form>
+{% endblock %}

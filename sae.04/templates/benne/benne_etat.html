@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Benne</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Etat des bennes</h3>
+
+    <form method="post" action="/benne/etat">
+
+         <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+                <div class="card-header">
+                    <legend> Filtrer les bennes</legend>
+                </div>
+                <div class="card-body">
+
+                <fieldset>
+
+                    <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="centre">Centre</label><br>
+                            <select class="form-select" name="centre">
+                                <option value="">Sélectionner un centre</option>
+                                {% for centre in centres %}
+                                    <option value="{{ centre.id }}"> {{ centre.nom }} / {{ centre.adresse }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                     <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <label class="col-sm-2 col-form-label" for="produit">Produit</label><br>
+                                <select class="form-select" name="produit">
+                                    <option value="">Sélectionner un type de produit</option>
+                                    {% for produit in produits %}
+                                        <option value="{{ produit.id }}"> {{ produit.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                     </div>
+
+                    <input class="btn btn-primary mb-3" style="margin:10px" type="submit" value="Valider" name="Valider">
+                </fieldset>
+                </div>
+        </div>
+    </form>
+
+    <div class="card" style="margin:10px">
+        <h3>Il y a un volume total de {{ Vtotal.v }}m3 pour {{ Vtotal.nb }} benne(s)</h3>
+       <table class="table table-striped table-hover" style="margin-top:20px; padding: 10px; border:lightgrey solid 1px">
+            <thead>
+            <tr class="table-success" >
+                <th>Centre</th>
+                <th>Volume par benne</th>
+                <th>Nombre</th>
+                <th>Produit</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for benne in bennes %}
+                <tr>
+                    <td>{{ benne.nom_centre }}</td>
+                    <td>{{ benne.volume }}</td>
+                    <td>{{ benne.nb_benne }}</td>
+                    <td>{{ benne.libelle_produit }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <a class="btn btn-danger mb-3" style="margin:10px" href="/benne/show">Retour</a>
+    </div>
+{% endblock %}

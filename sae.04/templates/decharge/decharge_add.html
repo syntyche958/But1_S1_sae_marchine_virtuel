@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Décharge</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Ajouter une décharge</h3>
+    <form method="post" action="/decharge/add">
+        <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+            <div class="card-header">
+                <legend> Créer une décharge</legend>
+            </div>
+            <div class="card-body">
+                <fieldset>
+                <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="num_vehicule">Véhicule (Numéro / Poids max / Date d'achat)</label>
+                            <select
+                                class="form-select"
+                                id="num_vehicule"
+                                name="num_vehicule"
+                                required
+                            >
+                                {% if vehicules %}
+                                    <option value="">Sélectionner une valeur</option>
+                                    {% for vehicule in vehicules %}
+                                        <option value="{{vehicule.id}}">
+                                            {{ vehicule.id }} / {{ vehicule.poids }} / {{ vehicule.date_achat }}
+                                        </option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="num_usine">Usine (Nom / adresse)</label>
+                            <select
+                                class="form-select"
+                                id="num_usine"
+                                name="num_usine"
+                                required
+                            >
+                                {% if usines %}
+                                    <option value="">Sélectionner une valeur</option>
+                                    {% for usine in usines %}
+                                        <option value="{{usine.id}}">
+                                            {{ usine.nom }} / {{ usine.adresse }}
+                                        </option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="num_produit">Libelle produit</label>
+                            <select
+                                class="form-select"
+                                id="num_produit"
+                                name="num_produit"
+                                required
+                            >
+                                {% if produits %}
+                                    <option value="">Sélectionner une valeur</option>
+                                    {% for produit in produits %}
+                                        <option value="{{produit.id}}">
+                                            {{ produit.libelle }}
+                                        </option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="quantite">Quantité</label>
+                            <div class="input-group">
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    min="0"
+                                    id="quantite"
+                                    name="quantite"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                <a class="btn btn-danger mb-3" style="margin:10px" href="/decharge/show">Annuler</a>
+                <input  class="btn btn-primary mb-3" style="margin:10px" type="submit" value="Valider" name="Valider">
+                </fieldset>
+            </div>
+        </div>
+    </form>
+{% endblock %}

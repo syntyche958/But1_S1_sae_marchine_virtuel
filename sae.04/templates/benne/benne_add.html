@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Benne</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Ajouter une benne</h3>
+    <form method="post" action="/benne/add">
+
+        <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+            <div class="card-header">
+                <legend> Créer une benne</legend>
+            </div>
+            <div class="card-body">
+
+                <fieldset>
+
+                <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <label class="col-sm-2 col-form-label" for="centre" >Centre</label><br>
+                        <select class="form-select" name="centre" required>
+                            <option value="">Sélectionner un centre</option>
+                            {% for centre in centres %}
+                                <option value="{{ centre.id }}"> {{ centre.nom }} / {{ centre.adresse }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <label class="col-sm-2 col-form-label" for="produit">Produit</label><br>
+                        <select class="form-select" name="produit" required>
+                            <option value="">Sélectionner un type de produit</option>
+                            {% for produit in produits %}
+                                <option value="{{ produit.id }}"> {{ produit.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <label class="col-sm-2 col-form-label" for="nbBenne">Nombre de benne</label><br>
+                        <input id="nbBenne" type="number" name="nbBenne" value="" required><br>
+                    </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <label class="col-sm-2 col-form-label" for="volume">Volume par benne</label><br>
+                        <input id="volume" type="number" name="volume" value="" required><br>
+                    </div>
+                 </div>
+
+
+                    <input  class="btn btn-primary mb-3" type="submit" value="Valider" name="Valider">
+                <a class="btn btn-danger mb-3" href="/benne/show">Annuler</a>
+                </fieldset>
+            </div>
+        </div>
+
+    </form>
+{% endblock %}

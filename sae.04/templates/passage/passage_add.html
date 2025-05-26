@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Passage</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Ajouter un passage</h3>
+    <form method="post" action="/passage/add">
+     <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+                <div class="card-header">
+                    <legend> Créer un passage</legend>
+                </div>
+                <div class="card-body">
+                <fieldset>
+
+                 <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                    <label class="col-sm-2 col-form-label" for="centre">Centre</label>
+                    <select class="form-select" name="centre" required>
+                        <option value="">Sélectionner un centre</option>
+                        {% for centre in centres %}
+                            <option value="{{ centre.id }}"> {{ centre.nom }} / {{ centre.adresse_centre }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                    <div class="col">
+                        <label class="col-sm-2 col-form-label" for="vehicule">Vehicule</label><br>
+                        <select class="form-select" name="vehicule" required>
+                            <option value="">Sélectionner un vehicule</option>
+                            {% for vehicule in vehicules %}
+                                <option value="{{ vehicule.id }}"> {{ vehicule.id }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="date_passage">Date de passage</label><br>
+                            <input id="date_passage" type="date" name="date_passage" value="" required><br>
+                        </div>
+                 </div>
+                 <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label for="ordre">Ordre de passage</label><br>
+                            <input id="ordre" type="number" name="ordre" value="" required><br>
+                        </div>
+                 </div>
+
+                    <input class="btn btn-primary mb-3" type="submit" value="Valider" name="Valider">
+                <a class="btn btn-danger mb-3" href="/passage/show">Annuler</a>
+                </fieldset>
+    </form>
+{% endblock %}

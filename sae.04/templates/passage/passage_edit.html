@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Passage</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Editer un passage</h3>
+    <form method="post" action="/passage/edit">
+
+        <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+            <div class="card-header">
+                <legend> Modifier un passage</legend>
+            </div>
+
+            <div class="card-body">
+
+                <fieldset>
+
+                     <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <input type="hidden" name="id" value="{{ passage.id_passage }}" >
+                                <div class="col">
+                                    <label class="col-sm-2 col-form-label" for="centre">Centre</label>
+                                    <select class="form-select" name="centre" required>
+                                        {% for centre in centres %}
+                                            <option value="{{ centre.id }}"
+                                                    {% if centre.id is defined and passage.num_centre == centre.id %}selected{% endif %}>
+                                                {{ centre.nom }} / {{ centre.adresse_centre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                     </div>
+
+                     <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="vehicule">Vehicule</label>
+                            <select class="form-select" name="vehicule" required>
+                                {% for vehicule in vehicules %}
+                                    <option value="{{ vehicule.id }}"
+                                            {% if vehicule.id is defined and passage.num_vehicule == vehicule.id %}selected{% endif %}>
+                                        {{ vehicule.id }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                     </div>
+
+                     <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <label class="col-sm-2 col-form-label" for="date_passage">Date de passage</label>
+                                <input id="date_passage" type="date" name="date_passage" value="{{ passage.JMA }}" required>
+                            </div>
+                     </div>
+
+                      <div class="row g-3" style="padding:10px">
+                            <div class="col">
+                                <label class="col-sm-2 col-form-label" for="ordre">Ordre de passage</label>
+                                <input id="ordre" type="number" name="ordre" value="{{ passage.ordre }}" required>
+                            </div>
+                      </div>
+
+                     <input class="btn btn-primary mb-3" type="submit" value="Valider" name="Valider">
+                <a class="btn btn-danger mb-3" href="/passage/show">Annuler</a>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+{% endblock %}

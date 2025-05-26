@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Benne</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Editer une benne</h3>
+    <form method="post" action="/benne/edit">
+        <div class="card border-dark mb-3"  style="max-width: 100%;margin: 10px">
+            <div class="card-header">
+                <legend> Modifier une benne</legend>
+            </div>
+            <div class="card-body">
+                <fieldset>
+
+                     <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <input type="hidden" name="id" value="{{ benne.id_benne }}" >
+                            <label class="col-sm-2 col-form-label" for="nbBenne">Nombre de benne</label>
+                            <input id="nbBenne" type="number" name="nbBenne" value="{{ benne.nb_benne }}" required>
+                        </div>
+                     </div>
+                    <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="volume">Volume par benne</label>
+                            <input id="volume" type="number" name="volume" value="{{ benne.volume }}" required>
+                        </div>
+                    </div>
+                    <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="centre">Centre</label>
+                            <select class="form-select" name="centre" required>
+                                {% for centre in centres %}
+                                    <option value="{{ centre.id }}"
+                                            {% if centre.id is defined and benne.num_centre == centre.id %}selected{% endif %}>
+                                        {{ centre.nom }} / {{ centre.adresse }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                     <div class="row g-3" style="padding:10px">
+                        <div class="col">
+                            <label class="col-sm-2 col-form-label" for="produit">Produit</label>
+                            <select class="form-select" name="produit" required>
+                            {% for produit in produits %}
+                                <option value="{{ produit.id }}"
+                                        {% if produit.id is defined and benne.num_produit == produit.id %}selected{% endif %}>
+                                    {{ produit.nom }}</option>
+                            {% endfor %}
+                             </select>
+                        </div>
+                     </div>
+
+                        <input class="btn btn-primary mb-3" type="submit" value="Valider" name="Valider">
+                <a class="btn btn-danger mb-3"  href="/benne/show">Annuler</a>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+{% endblock %}
